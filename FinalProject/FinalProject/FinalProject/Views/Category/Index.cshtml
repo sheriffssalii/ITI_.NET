@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Category>
+
+@{
+    ViewData["Title"] = "Categories Portal";
+}
+
+<div class="container mt-5 mb-5">
+    <!-- Page Header -->
+    <div class="text-center mb-4">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+        <i class="bi bi-tags-fill text-success" style="font-size: 3rem;"></i>
+        <h1 class="fw-bold text-success">Categories Portal</h1>
+        <p class="text-muted">Manage all product categories here</p>
+    </div>
+
+    <!-- Add Button -->
+    <div class="d-flex justify-content-end mb-3">
+        <a asp-controller="Category" asp-action="Create" class="btn btn-success shadow-sm rounded-3 fw-semibold">
+            <i class="bi bi-plus-circle me-1"></i> Add New Category
+        </a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <!-- Table -->
+        <div class="table-responsive shadow rounded-4">
+            <table class="table table-hover text-center align-middle mb-0">
+                <thead class="table-success text-dark">
+                    <tr>
+                        <th>@Html.DisplayNameFor(e => e.CategoryId)</th>
+                        <th>@Html.DisplayNameFor(e => e.Name)</th>
+                        <th colspan="3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CategoryId</td>
+                            <td class="fw-semibold">@item.Name</td>
+                            <td>
+                                <a asp-controller="Category" asp-action="Details" asp-route-id="@item.CategoryId" class="btn btn-outline-primary btn-sm rounded-pill">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-controller="Category" asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-outline-secondary btn-sm rounded-pill">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                            </td>
+                            <td>
+                                <form asp-controller="Category" asp-action="Delete" asp-route-id="@item.CategoryId" method="post" onsubmit="return confirm('This Category Will Be Deleted. Are You Sure?')" style="display: inline;">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill">
+                                        <i class="bi bi-trash3"></i> Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Summary -->
+        <div class="text-end mt-3">
+            <span class="text-muted">Total: @Model.Count() Categories</span>
+        </div>
+    }
+    else
+    {
+        <!-- No Categories -->
+        <div class="alert alert-warning text-center rounded-4 shadow-sm">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            No categories found. Start by adding a new one!
+        </div>
+    }
+</div>
