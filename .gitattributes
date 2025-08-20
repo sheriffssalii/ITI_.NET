@@ -1,2 +1,10 @@
-* linguist-vendored=false
+# Show C# as C#
 *.cs linguist-language=C#
+
+# Count Razor views as HTML (or C#, depending on preference)
+*.cshtml linguist-language=HTML
+
+# Ignore third-party assets (Bootstrap, jQuery, etc.)
+wwwroot/lib/* linguist-vendored
+wwwroot/js/* linguist-vendored
+wwwroot/css/* linguist-vendored
